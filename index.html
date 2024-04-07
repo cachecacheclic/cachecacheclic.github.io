@@ -10,8 +10,8 @@
         padding: 0;
         font-family: Arial, sans-serif;
         text-align: center;
-        position: relative; /* Position relative pour centrer l'énigme */
-        height: 100vh; /* Hauteur de la fenêtre */
+        position: relative;
+        height: 100vh;
     }
     #enigme {
         position: absolute;
@@ -22,9 +22,9 @@
         font-weight: bold;
     }
     .cache-cache {
-        position: absolute; /* Position aléatoire sur la page */
-        color: rgba(0, 0, 0, 0.1); /* Couleur grise semi-transparente */
-        pointer-events: none; /* Permet aux clics de passer à travers */
+        position: absolute;
+        color: rgba(0, 0, 0, 0.1);
+        pointer-events: none;
     }
     #infoBox {
         display: none;
@@ -46,7 +46,7 @@
 <img src="information.png" alt="Information" id="infoButton" style="position: absolute; top: 10px; left: 10px; width: 30px; cursor: pointer;">
 
 <div id="infoBox">
-    <p>Cache-Cache-Clic... est une exposition sur et avec Internet qui se découvre au grès de vos recherches dans le bâtiment de l'ESAD. A la place d'un plan d'exposition nous avons choisi une interface web pour vous mettre sur la piste. En suivant les instructions vous y trouverez des installations insitu et des tags NFC à décoder avec votre smartphone pour accéder aux différents contenus. Enjoy 😛</p>
+    <p>Cache-Cache-Clic... est une exposition sur et avec Internet qui se découvre au gré de vos recherches dans le bâtiment de l'ESAD. A la place d'un plan d'exposition, nous avons choisi une interface web pour vous mettre sur la piste. En suivant les instructions vous y trouverez des installations in situ et des tags NFC à décoder avec votre smartphone pour accéder aux différents contenus. Enjoy 😛</p>
     <p>Avec : Hind Abbaze, Anne-Sophie Fofana, Jolaine Kanda, Macha Frantskevich, Bastien Record, Emilie Retailleau, Lita Shin, Eda Tinmaz, Berk Ata Türkyılmaz, Rita Lenore Viitkar, Valérie Yong.</p>
 </div>
 
@@ -58,21 +58,21 @@
     const touchDelay = 1000; // Délai en millisecondes avant d'afficher l'énigme après un toucher
 
     const enigmes = [
-        "Rendez-vous au rez de chaussé ! au niveau des affiches entre la salle 6 et 7 pour découvrir avec votre lecteur NFC de votre téléphone",
+        "Rendez-vous au rez-de-chaussée, au niveau des affiches entre la salle 6 et 7 pour découvrir ce qui se cache avec votre lecteur NFC de votre téléphone",
         "Vous n'êtes pas loin",
-        "Rendez-vous au rez de chaussé, sur le mur du couloir de la salle 8, découvrez moi avec votre lecteur NFC de votre téléphone",
+        "Rendez-vous au rez-de-chaussée, sur le mur du couloir de la salle 8, découvrez-moi avec votre lecteur NFC de votre téléphone",
         "Vous chauffez",
         "Vous êtes tièdes",
-        "Rendez-vous au rez de chaussé devant le miroir des toilettes pour un selfie inoubliable...",
+        "Rendez-vous au rez-de-chaussée devant le miroir des toilettes pour un selfie inoubliable...",
         "Encore un petit effort",
-        "Rendez-vous dans l'atelier vidéo, vous y trouverez une affiche accrochée au mur, décodez à l'aide de votre lecteur NFC",
+        "Rendez-vous dans l'atelier vidéo, vous y trouverez une affiche accrochée au mur, décodez la à l'aide de votre lecteur NFC",
         "Rendez-vous au 2ème étage, dans la salle 211...",
         "Rendez-vous devant un poster A2 sur le mur près de la COOP",
-        "Rendez-vous à l'accueil au niveau des cartes de vistes, des pubs et des prospectus",
-        "Encore cherchez encore",
+        "Rendez-vous au rez-de-chaussée à l'accueil au niveau des cartes de vistes, des pubs et des prospectus",
+        "Encore, cherchez encore",
         "Vous êtes meilleur pour chercher des chocolats",
 
-        // Ajoutez plus d'énigmes ici
+        
     ];
 
     function getRandomEnigme() {
@@ -85,10 +85,9 @@
         return nouvelleEnigme;
     }
 
-    // Fonction pour obtenir une position aléatoire à l'intérieur de la zone visible de l'écran
     function getPositionInsideViewport() {
-        const posX = Math.random() * (window.innerWidth - 100); // Ajustez la plage pour rester à l'intérieur de l'écran
-        const posY = Math.random() * (window.innerHeight - 100); // Ajustez la plage pour rester à l'intérieur de l'écran
+        const posX = Math.random() * (window.innerWidth - 100); 
+        const posY = Math.random() * (window.innerHeight - 100);
         return { x: posX, y: posY };
     }
 
@@ -105,7 +104,6 @@
         enigmeElement.innerText = enigme;
         lireEnigme(enigme);
 
-        // Ajouter les mots "cache-cache" du fond jusqu'au prochain clic ou touché de l'écran
         const intervalId = setInterval(() => {
             const cacheCacheText = document.createTextNode('cache-cache');
             const cacheCacheNode = document.createElement('div');
@@ -117,7 +115,6 @@
             cacheCacheNode.style.top = y + 'px';
         }, 1000);
 
-        // Arrêter d'ajouter les mots "cache-cache" lorsque le prochain clic est détecté
         document.addEventListener('click', () => {
             clearInterval(intervalId);
             // Supprimer tous les éléments avec la classe 'cache-cache'
@@ -135,19 +132,18 @@
         window.speechSynthesis.speak(speech);
     }
 
-    // Afficher ou masquer les informations supplémentaires
+
     document.getElementById('infoButton').addEventListener('click', function() {
         const infoBox = document.getElementById('infoBox');
         if (infoBox.style.display === 'none' || infoBox.style.display === '') {
             infoBox.style.display = 'block';
-            // Ajouter un écouteur d'événements pour détecter les clics sur la fenêtre et masquer les informations lorsque vous cliquez en dehors de la boîte d'informations
             window.addEventListener('click', detecterClicExterieur);
         } else {
             infoBox.style.display = 'none';
         }
     });
 
-    // Fonction pour détecter les clics à l'extérieur de la boîte d'informations
+ 
     function detecterClicExterieur(event) {
         const infoBox = document.getElementById('infoBox');
         if (!infoBox.contains(event.target) && event.target !== document.getElementById('infoButton')) {
@@ -158,7 +154,7 @@
 
     let lastTouchTime = 0;
 
-    // Lancer le jeu lorsque l'utilisateur clique ou touche l'écran
+
     document.addEventListener('click', () => {
         afficherEnigme();
     });
