@@ -10,8 +10,8 @@
         padding: 0;
         font-family: Arial, sans-serif;
         text-align: center;
-        position: relative;
-        height: 100vh;
+        position: relative; 
+        height: 100vh; 
     }
     #enigme {
         position: absolute;
@@ -22,9 +22,9 @@
         font-weight: bold;
     }
     .cache-cache {
-        position: absolute;
-        color: rgba(0, 0, 0, 0.1);
-        pointer-events: none;
+        position: absolute; 
+        color: rgba(0, 0, 0, 0.1); 
+        pointer-events: none; 
     }
     #infoBox {
         display: none;
@@ -58,20 +58,33 @@
     const touchDelay = 1000; // Délai en millisecondes avant d'afficher l'énigme après un toucher
 
     const enigmes = [
-        "Rendez-vous au rez-de-chaussée, au niveau des affiches entre la salle 6 et 7 pour découvrir ce qui se cache avec votre lecteur NFC de votre téléphone",
+        "Rendez-vous au rez-de-chaussée dans la salle de convivialité vous trouverez des lecteurs de paiement sur les distributeurs à décoder avec votre lecteur NFC",
         "Vous n'êtes pas loin",
-        "Rendez-vous au rez-de-chaussée, sur le mur du couloir de la salle 8, découvrez-moi avec votre lecteur NFC de votre téléphone",
+        "Payez pour rentrer dans les toilettes du rez-de-chaussée",
+        "Rendez-vous au fond du couloir du rez-de-chaussée, dans l'escalier qui monte au premier étage",
         "Vous chauffez",
         "Vous êtes tièdes",
-        "Rendez-vous au rez-de-chaussée devant le miroir des toilettes pour un selfie inoubliable...",
+        "Rendez-vous au rez-de-chaussée devant le miroir des toilettes pour un selfie inoubliable",
+        "Rendez-vous au rez-de-chaussée dans la salle de convialité, sur la porte qui mène dehors. Décodez moi avec votre lecteur NFC pour participer à un jeu concours",
         "Encore un petit effort",
-        "Rendez-vous dans l'atelier vidéo, vous y trouverez une affiche accrochée au mur, décodez la à l'aide de votre lecteur NFC",
-        "Rendez-vous au 2ème étage, dans la salle 211...",
-        "Rendez-vous devant un poster A2 sur le mur près de la COOP",
-        "Rendez-vous au rez-de-chaussée à l'accueil au niveau des cartes de vistes, des pubs et des prospectus",
+        "Rendez-vous devant la COOP, vous trouverez un TPE ouvert 24h/24",
+        "Rendez-vous au rez-de-chaussée, au niveau des affiches entre la salle 6 et 7 pour découvrir ce qui se cache avec votre lecteur NFC de votre téléphone",
+        "Rendez-vous au rez-de-chaussée, dans la salle convivialité un carnet s'y cache. Mettez-vous à quatre pattes, vous trouverez un carnet à décoder avec le lecteur NFC de votre téléphone",
+        "Vous souhaitez obtenir les cracks adobe ? Rendez-vous en salle de convivialité au niveau des affiches. Un tag NFC est à décoder",
         "Encore, cherchez encore",
         "Vous êtes meilleur pour chercher des chocolats",
-
+        "Vous cherchez à obtenir Photoshop mais vous n'avez pas un sou ! Rendez-vous au premier étage en salle d'infographie, à côté de la porte vous trouverez un tag NFC à décoder",
+        "Rendez-vous au rez-de-chaussée, sur le mur du couloir de la salle 8, vous pourrez me décoder avec votre lecteur NFC",
+        "Rendez-vous aux toilettes du rez-de-chaussée, vous y trouverez une affiche Disco, scannez la boule à facettes qui porte des lunettes" ,
+        "Rendez-vous dans l'escalier à côté de l'accueil entre le rez-de-chaussée et le premier étage",
+        "A la recherche de futurs nouveaux amis ? Rendez-vous à la COOP et demandez une carte",
+        "Vol de données personnelles, rendez-vous en salle de convivialité vous y trouverez des mouchoirs",
+        "A la recherche de futurs nouveaux amis ? Rendez-vous à la COOP et demandez une carte",
+        "Rendez-vous au premier étage en salle 103, retrouvez le bon NFC qui se cache pour accéder à notre site web et gagner un cadeau",
+        "Rendez-vous en salle de convivialité, approchez-vous des city screens, nous sommes surveillés faites attention à vos grimaces, scannez le tag NFC",
+        "Vous êtes stressé ? Vous voulez vous détendre ? Rendez-vous au rez-de-chaussée au niveau des affiches collées sur la machine à café. Scannez moi avec votre lecteur NFC",
+        "Rendez-vous au rez-de-chaussée à droite de la salle des professeurs. Pour jouer au jeu scannez le NFC",
+        "Rendez-vous en salle 103, vous trouverez des cartes à gratter sur la table (Net Art Scratch Lottery). Bonne chance !"
         
     ];
 
@@ -85,9 +98,10 @@
         return nouvelleEnigme;
     }
 
+    
     function getPositionInsideViewport() {
-        const posX = Math.random() * (window.innerWidth - 100); 
-        const posY = Math.random() * (window.innerHeight - 100);
+        const posX = Math.random() * (window.innerWidth - 100); // Ajustez la plage pour rester à l'intérieur de l'écran
+        const posY = Math.random() * (window.innerHeight - 100); // Ajustez la plage pour rester à l'intérieur de l'écran
         return { x: posX, y: posY };
     }
 
@@ -104,6 +118,7 @@
         enigmeElement.innerText = enigme;
         lireEnigme(enigme);
 
+        
         const intervalId = setInterval(() => {
             const cacheCacheText = document.createTextNode('cache-cache');
             const cacheCacheNode = document.createElement('div');
@@ -115,6 +130,7 @@
             cacheCacheNode.style.top = y + 'px';
         }, 1000);
 
+        
         document.addEventListener('click', () => {
             clearInterval(intervalId);
             // Supprimer tous les éléments avec la classe 'cache-cache'
@@ -132,18 +148,19 @@
         window.speechSynthesis.speak(speech);
     }
 
-
+    
     document.getElementById('infoButton').addEventListener('click', function() {
         const infoBox = document.getElementById('infoBox');
         if (infoBox.style.display === 'none' || infoBox.style.display === '') {
             infoBox.style.display = 'block';
+            
             window.addEventListener('click', detecterClicExterieur);
         } else {
             infoBox.style.display = 'none';
         }
     });
 
- 
+    
     function detecterClicExterieur(event) {
         const infoBox = document.getElementById('infoBox');
         if (!infoBox.contains(event.target) && event.target !== document.getElementById('infoButton')) {
@@ -154,7 +171,7 @@
 
     let lastTouchTime = 0;
 
-
+   
     document.addEventListener('click', () => {
         afficherEnigme();
     });
